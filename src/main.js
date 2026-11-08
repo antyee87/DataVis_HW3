@@ -39,7 +39,7 @@ const state = {
   selectedIds: new Set(),
   selectedEvent: null,   // 已點選 / Enter 選取的地震（詳細資料面板顯示）
   focusEvent: null,      // 鍵盤逐點瀏覽目前停在的地震（三張圖同步畫焦點環）
-  filters: { minML: 4, maxML: 8, minDepth: 0, maxDepth: 400 }
+  filters: { minML: 2, maxML: 8}
 };
 
 // 圖表內部座標系：固定 600x600，由 viewBox / 百分比定位自動縮放到實際尺寸
@@ -243,7 +243,7 @@ function applyFilters() {
   drawMLLegend(".ml-legend");
 
   state.filteredData = state.allData.filter((d) =>
-    d.ML >= f.minML && d.ML <= f.maxML && d.depth >= f.minDepth && d.depth <= f.maxDepth
+    d.ML >= f.minML && d.ML <= f.maxML
   );
   state.filteredData.forEach((d) => { d.bin = binOf(d.ML); });
 
@@ -259,7 +259,6 @@ function applyFilters() {
   $("#filter-status").textContent =
     `目前顯示 ${state.filteredData.length.toLocaleString()} / ${state.allData.length.toLocaleString()} 筆符合資料範圍的地震。`;
   $("#ml-range-label").textContent = `${f.minML} — ${f.maxML}`;
-  $("#depth-range-label").textContent = `${f.minDepth} — ${f.maxDepth} km`;
 }
 
 function setSelected(ids) {
@@ -717,8 +716,8 @@ function setupKeyboardNavigation() {
  * ===================================================================== */
 
 function setupFilters() {
-  [["ml-min", "minML", 0, 10], ["ml-max", "maxML", 0, 10],
-  ["depth-min", "minDepth", 0, 400], ["depth-max", "maxDepth", 0, 400]
+  [["ml-min", "minML", 0, 10],
+    ["ml-max", "maxML", 0, 10]
   ].forEach(([id, key, min, max]) => {
     $("#" + id).addEventListener("change", (event) => {
       let value = Number(event.target.value);
@@ -727,7 +726,6 @@ function setupFilters() {
       f[key] = Math.max(min, Math.min(max, value));
       if (f.minML > f.maxML) [f.minML, f.maxML] = [f.maxML, f.minML];
       if (f.minDepth > f.maxDepth) [f.minDepth, f.maxDepth] = [f.maxDepth, f.minDepth];
-      syncFilterInputs();
       applyFilters();
     });
   });
@@ -742,8 +740,7 @@ function setupFilters() {
   });
 
   $("#reset-filters").addEventListener("click", () => {
-    state.filters = { minML: 4, maxML: 8, minDepth: 0, maxDepth: 400 };
-    syncFilterInputs();
+    state.filters = { minML: 2, maxML: 8};
     state.selectedIds.clear();
     state.selectedEvent = null;
     renderDetails();

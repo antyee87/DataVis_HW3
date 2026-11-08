@@ -35,7 +35,6 @@
           <h2>資料篩選</h2>
         </div>
         <div class="button-group">
-          <button id="reset-charts" class="secondary-button" type="button">重製圖表與縮放</button>
           <button id="reset-filters" class="secondary-button" type="button">重設篩選</button>
         </div>
       </div>
@@ -43,25 +42,18 @@
         <div class="filter-control">
           <label for="ml-min">芮氏規模 ML</label>
           <div class="range-inputs">
-            <label>最小值 <input id="ml-min" type="number" min="0" max="10" step="0.1" value="4"></label>
+            <label>最小值 <input id="ml-min" type="number" min="0" max="10" step="0.1" value="2"></label>
             <label>最大值 <input id="ml-max" type="number" min="0" max="10" step="0.1" value="8"></label>
           </div>
           <div class="range-track"><span id="ml-range-label">0 — 10</span></div>
         </div>
-        <div class="filter-control">
-          <label for="depth-min">震源深度 Depth (km)</label>
-          <div class="range-inputs">
-            <label>最小值 <input id="depth-min" type="number" min="0" max="400" step="1" value="0"></label>
-            <label>最大值 <input id="depth-max" type="number" min="0" max="400" step="1" value="400"></label>
-          </div>
-          <div class="range-track"><span id="depth-range-label">0 — 400 km</span></div>
-        </div>
       </div>
       <p id="filter-status" class="muted" aria-live="polite">正在載入資料…</p>
     </section>
-
-    <svg class="ml-legend" role="img" aria-label="圖例：圓點的顏色與大小都代表芮氏規模 ML"></svg>
-
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <svg class="ml-legend" role="img" aria-label="圖例：圓點的顏色與大小都代表芮氏規模 ML"></svg>
+      <button id="reset-charts" class="secondary-button" type="button">重製圖表與縮放</button>
+    </div>
     <!-- 2x2 四宮格排版 (鍵盤模式說明文字已移至各圖表附近) -->
     <section class="dashboard-grid">
       <!-- 左上角: View 01 (經度 × 緯度) -->
@@ -131,12 +123,12 @@
       <p class="eyebrow">HOW TO EXPLORE</p>
       <h2>操作說明與可及性（Accessibility）</h2>
       <ul>
-        <li><b>滑鼠互動：</b>滾輪縮放（按住 Ctrl 僅縮放 X 軸、Shift 僅縮放 Y 軸、無按鍵雙軸同步）；按住 Shift 拖曳平移 (Pan)；框選 (Brushing) 與點擊查看詳細資料。</li>
-        <li><b>鍵盤互動（核心可及性）：</b>使用 <b>Tab 鍵</b> 切換圖表焦點。聚焦圖表後，按 <b>Ctrl 鍵</b> 可循環切換縮放模式（雙軸 ➡️ 僅橫軸 ➡️ 僅縱軸），按 <b>+ / - 鍵</b>
+        <li><b>滑鼠互動：鼠標置於資料點上時會顯示 tooltip ，</b>滾輪縮放（按住 Ctrl 僅縮放 X 軸、Shift 僅縮放 Y 軸、無按鍵雙軸同步）；按住 Shift 拖曳平移 (Pan)；框選 (Brushing) 與點擊查看詳細資料。</li>
+        <li><b>鍵盤互動：</b>使用 <b>Tab 鍵</b> 切換圖表焦點。聚焦圖表後，按 <b>M 鍵</b> 可循環切換縮放模式（雙軸 ➡️ 僅橫軸 ➡️ 僅縱軸），按 <b>+ / - 鍵</b>
           縮放，使用<b>方向鍵</b>平移。同時按住 <b>Alt 鍵</b> 可將縮放與平移速度提升 5 倍</li>
         <li><b>逐點瀏覽（不需滑鼠）：</b>聚焦圖表後，按 <b>]</b> / <b>[</b> 依芮氏規模由大到小前後瀏覽可視範圍內的地震（<b>PageDown / PageUp</b> 一次跳十筆，<b>Home /
             End</b> 跳到最大 / 最小規模），
-          焦點資料點會顯示 tooltip 與黑白焦點環並由螢幕閱讀器播報；按 <b>Enter</b> 選取並在「地震詳細資料」面板顯示完整資料，<b>Esc</b> 離開。可先縮放縮小範圍再逐點瀏覽。</li>
+          焦點資料點會顯示 tooltip ，按 <b>Enter</b> 選取並在「地震詳細資料」面板顯示完整資料，<b>Esc</b> 離開。可先縮放縮小範圍再逐點瀏覽。</li>
       </ul>
     </section>
   </main>
